@@ -1,5 +1,5 @@
 # ClusterChatServer
-基于Muduo实现的负载均衡聊天服务器以及客户端
+基于Muduo实现的负载均衡聊天服务器
 
 ---
 > 开发环境以及相关工具
@@ -10,19 +10,23 @@
 - Muduo：https://github.com/chenshuo/muduo
 - Json库：https://github.com/nlohmann/json
 ---
+> 整体架构
+
+![](png/2024-09-03-20-57-58.png)
+
+---
 > 项目结构
-├── autobuild.sh
-├── bin
-├── build
-├── CMakeLists.txt
-├── include
+```
+├── bin       // 编译之后的二进制文件
+├── build     // CMake生成的中间文件
+├── include   // 头文件
 │   ├── public.hpp
 │   └── server
 │       ├── chatserver.hpp
 │       ├── chatservice.hpp
 │       ├── db
 │       │   └── db.h
-│       ├── model
+│       ├── model         // ORM对象以及数据操作接口
 │       │   ├── friendmodel.hpp
 │       │   ├── group.hpp
 │       │   ├── groupmodel.hpp
@@ -32,13 +36,13 @@
 │       │   └── usermodel.hpp
 │       └── redis
 │           └── redis.hpp
-├── README.md
-├── src
-│   ├── client
+|
+├── src    //源码
+|   ├── CMakeLists.txt       
+│   ├── client          // 客户端源码
 │   │   ├── CMakeLists.txt
 │   │   └── main.cpp
-│   ├── CMakeLists.txt
-│   └── server
+│   └── server         // 服务端源码
 │       ├── chatserver.cpp
 │       ├── chatservice.cpp
 │       ├── CMakeLists.txt
@@ -52,7 +56,7 @@
 │       │   └── usermodel.cpp
 │       └── redis
 │           └── redis.cpp
-├── test
+├── test              // json库和Muduo库测试文件
 │   ├── testjson
 │   │   ├── json.hpp
 │   │   ├── testjson
@@ -60,9 +64,11 @@
 │   └── testmuduo
 │       ├── CMakeLists.txt
 │       └── muduo_server.cpp
-└── thirdparty
-    └── json.hpp
-
+└── thirdparty      // 第三方json解析及编码器
+|    └── json.hpp
+├── CMakeLists.txt 
+├── README.md
+```
 ---
 > 编译
 1. cd build
@@ -78,4 +84,4 @@
 2. 启动客户端
     - ./bin/ChatClient 127.0.0.1 8000
     - ./bin/ChatClient 127.0.0.1 8000
-
+3. 在客户端终端发送消息，观察服务端终端反馈
